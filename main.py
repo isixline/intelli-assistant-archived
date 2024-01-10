@@ -7,33 +7,43 @@ load_dotenv()
 
 logger = configure_logger(__name__, 'assistant.log')
 
+# Define a mapping of keywords to search functions
+search_functions = {
+    'wikipedia': search_wikipedia,
+    'weather': search_weather,
+}
+
+def generate_prompt():
+    keywords = ', '.join(search_functions.keys())
+    return f"Enter a keyword ({keywords}) to search, or 'exit' to end the program:"
+
+def perform_search(keyword, search_query):
+    search_function = search_functions.get(keyword)
+    if search_function:
+        result = search_function(search_query)
+        logger.info(f"user_input: {keyword} {search_query}")
+        logger.info(f"search_result: {result}")
+        return result
+    else:
+        return "I'm sorry, I don't understand what you're asking for."
+
 def main():
     print("Hello! I'm your personal intelligent assistant.")
 
     while True:
-        user_input = input("Enter 'wikipedia' or 'weather' to search and 'exit' to end the program:")
+        user_input = input(generate_prompt())
         
         if user_input.lower() == "exit":
             logger.info("user exit")
             print("Goodbye and have a nice day!")
             break
 
-        if "wikipedia" in user_input:
-            search_query = user_input.replace("wikipedia", "").strip()
-            if search_query == "":
-                search_query = input("What do you want to search for?")
-            search_result = search_wikipedia(search_query)
-        elif "weather" in user_input:
-            search_query = user_input.replace("weather", "").strip()
-            if search_query == "":
-                search_query = input("What do you want to search for?")
-            search_result = search_weather(search_query)
-        else:
-            search_result = "I'm sorry, I don't understand what you're saying."
+        keyword, *search_query = user_input.lower().split(maxsplit=1)
 
-        logger.info(f"user_input: {user_input}")
-        logger.info(f"search_result: {search_result}")
+        while not search_query:
+            search_query = input("Please provide additional input after the keyword.")
 
+        search_result = perform_search(keyword, search_query)
         print(search_result)
 
 if __name__ == "__main__":
