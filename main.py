@@ -4,21 +4,23 @@ from log_util import configure_logger
 logger = configure_logger(__name__, 'assistant.log')
 
 def main():
-    print("你好！我是你的个人智能助手。")
+    print("Hello! I'm your personal intelligent assistant.")
 
     while True:
-        user_input = input("输入'维基百科'进行搜索，输入'退出'结束程序: ")
+        user_input = input("Enter 'wikipedia' to search and 'exit' to end the program:")
         
-        if user_input.lower() == "退出":
+        if user_input.lower() == "exit":
             logger.info("user exit")
-            print("再见，祝你有美好的一天！")
+            print("Goodbye and have a nice day!")
             break
 
-        if "维基百科" in user_input:
-            search_query = input("请问你想搜索什么？ ")
+        if "wikipedia" in user_input:
+            search_query = user_input.replace("wikipedia", "").strip()
+            if search_query == "":
+                search_query = input("What do you want to search for?")
             search_result = search_wikipedia(search_query)
         else:
-            search_result = "抱歉，我不理解你说的话."
+            search_result = "I'm sorry, I don't understand what you're saying."
 
         logger.info(f"user_input: {user_input}")
         logger.info(f"search_result: {search_result}")
