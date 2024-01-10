@@ -1,24 +1,18 @@
-from wikipedia_searcher import search_wikipedia
 from log_util import configure_logger
 from dotenv import load_dotenv
-from weather_searcher import search_weather
+from keyword_distributor import keyword_handle
+
 
 load_dotenv()
 
 logger = configure_logger(__name__, 'assistant.log')
 
-# Define a mapping of keywords to search functions
-search_functions = {
-    'wikipedia': search_wikipedia,
-    'weather': search_weather,
-}
-
 def generate_prompt():
-    keywords = ', '.join(search_functions.keys())
+    keywords = ', '.join(keyword_handle.keys())
     return f"Enter a keyword ({keywords}) to search, or 'exit' to end the program:"
 
 def perform_search(keyword, search_query):
-    search_function = search_functions.get(keyword)
+    search_function = keyword_handle.get(keyword)
     if search_function:
         result = search_function(search_query)
         logger.info(f"user_input: {keyword} {search_query}")
