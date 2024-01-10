@@ -1,5 +1,9 @@
 from wikipedia_searcher import search_wikipedia
 from log_util import configure_logger
+from dotenv import load_dotenv
+from weather_searcher import search_weather
+
+load_dotenv()
 
 logger = configure_logger(__name__, 'assistant.log')
 
@@ -7,7 +11,7 @@ def main():
     print("Hello! I'm your personal intelligent assistant.")
 
     while True:
-        user_input = input("Enter 'wikipedia' to search and 'exit' to end the program:")
+        user_input = input("Enter 'wikipedia' or 'weather' to search and 'exit' to end the program:")
         
         if user_input.lower() == "exit":
             logger.info("user exit")
@@ -19,6 +23,11 @@ def main():
             if search_query == "":
                 search_query = input("What do you want to search for?")
             search_result = search_wikipedia(search_query)
+        elif "weather" in user_input:
+            search_query = user_input.replace("weather", "").strip()
+            if search_query == "":
+                search_query = input("What do you want to search for?")
+            search_result = search_weather(search_query)
         else:
             search_result = "I'm sorry, I don't understand what you're saying."
 
