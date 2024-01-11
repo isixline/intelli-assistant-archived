@@ -56,5 +56,5 @@ install-log.txt
 target/
 
 venv/
-log/
+logs/
 .env

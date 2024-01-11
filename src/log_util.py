@@ -2,7 +2,7 @@ import logging
 import os
 
 def configure_logger(name, filename):
-    log_dir = 'log'
+    log_dir = 'logs'
     os.makedirs(log_dir, exist_ok=True)
 
     logger = logging.getLogger(name)
