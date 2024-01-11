@@ -1,4 +1,4 @@
-from log_util import configure_logger
+from utils.log_util import configure_logger
 from dotenv import load_dotenv
 from keyword_distributor import keyword_handle
 

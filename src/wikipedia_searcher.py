@@ -1,5 +1,5 @@
 import wikipedia
-from log_util import configure_logger
+from utils.log_util import configure_logger
 
 logger = configure_logger(__name__, 'wikipedia_search.log')
 
