@@ -19,9 +19,10 @@ def get_coordinates(api_key, city):
         if response.status_code == 200 and data:
             latitude = data[0]['lat']
             longitude = data[0]['lon']
+            logger.info(f"Success get {city} coordinates: {latitude}, {longitude}")
             return latitude, longitude
         else:
-            logger.warning(f"Failed to get coordinates: {data['message']}")
+            logger.warning(f"Failed get coordinates: {data['message']}")
             return None, None
     except Exception as e:
         logger.error(f"Exception while getting coordinates: {str(e)}")
@@ -43,6 +44,7 @@ def get_weather_by_coordinates(api_key, latitude, longitude):
         if response.status_code == 200:
             temperature = data['main']['temp']
             description = data['weather'][0]['description']
+            logger.info(f"Weather query success: - {latitude}, {longitude}")
             return f"Current weather: Temperature {temperature} °C, {description}"
         else:
             logger.warning(f"Weather query failed: {data['message']}")

@@ -1,11 +1,7 @@
 from src.utils.log_util import configure_logger
-from dotenv import load_dotenv
 from src.distributors.keyword_distributor import keyword_handle
 
-
-load_dotenv()
-
-logger = configure_logger(__name__, 'assistant.log')
+logger = configure_logger(__name__, 'user_interaction.log')
 
 def generate_prompt():
     keywords = ', '.join(keyword_handle.keys())
@@ -21,7 +17,7 @@ def perform_search(keyword, search_query):
     else:
         return "I'm sorry, I don't understand what you're asking for."
 
-def main():
+def interaction_handle():
     print("Hello! I'm your personal intelligent assistant.")
 
     while True:
@@ -39,6 +35,3 @@ def main():
 
         search_result = perform_search(keyword, search_query)
         print(search_result)
-
-if __name__ == "__main__":
-    main()
