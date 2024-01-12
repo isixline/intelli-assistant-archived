@@ -1,5 +1,5 @@
-from searchers.wikipedia_searcher import search_wikipedia
-from searchers.weather_searcher import search_weather
+from src.searchers.wikipedia_searcher import search_wikipedia
+from src.searchers.weather_searcher import search_weather
 
 keyword_handle = {
     'wikipedia': search_wikipedia,

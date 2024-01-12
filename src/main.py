@@ -1,6 +1,6 @@
-from utils.log_util import configure_logger
+from src.utils.log_util import configure_logger
 from dotenv import load_dotenv
-from distributors.keyword_distributor import keyword_handle
+from src.distributors.keyword_distributor import keyword_handle
 
 
 load_dotenv()

@@ -1,5 +1,5 @@
 import requests
-from utils.log_util import configure_logger
+from src.utils.log_util import configure_logger
 import os
 
 logger = configure_logger(__name__, 'weather_searcher.log')
