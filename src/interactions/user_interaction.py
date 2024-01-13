@@ -8,7 +8,10 @@ def generate_prompt():
     return f"Enter a keyword ({keywords}) to search, or 'exit' to end the program:"
 
 def perform_search(keyword, search_query):
+    print(f"Searching for {keyword}...")
+    print(search_query)
     search_function = keyword_handle.get(keyword)
+    print(search_function)
     if search_function:
         result = search_function(search_query)
         logger.info(f"user_input: {keyword} {search_query}")
