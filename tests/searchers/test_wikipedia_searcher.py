@@ -7,7 +7,7 @@ def test_search_wikipedia_summary_success(mock_summary):
     query = 'Python programming language'
     mock_summary.return_value = 'Python is a high-level programming language.'
 
-    result = search_wikipedia(query)
+    result = search_wikipedia(query=query)
 
     assert result == 'Python is a high-level programming language.'
     mock_summary.assert_called_once_with(query, sentences=1)
@@ -16,7 +16,7 @@ def test_search_wikipedia_summary_success(mock_summary):
 def test_search_wikipedia_disambiguation_error(mock_summary):
     query = 'Ambiguous Query'
     
-    result = search_wikipedia(query)
+    result = search_wikipedia(query=query)
 
     assert result == 'Please provide a more specific query.'
     mock_summary.assert_called_once_with(query, sentences=1)
@@ -25,7 +25,7 @@ def test_search_wikipedia_disambiguation_error(mock_summary):
 def test_search_wikipedia_page_error(mock_summary):
     query = 'Nonexistent Page'
     
-    result = search_wikipedia(query)
+    result = search_wikipedia(query=query)
 
     assert result == 'Sorry, no results found.'
     mock_summary.assert_called_once_with(query, sentences=1)

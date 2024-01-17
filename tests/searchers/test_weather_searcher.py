@@ -43,6 +43,6 @@ def test_search_weather(mock_get_weather, mock_get_coordinates, mock_os_getenv):
     mock_get_weather.return_value = "Current weather: Temperature 25.5 °C, Clear sky"
 
     city = 'New York'
-    result = search_weather(city)
+    result = search_weather(city=city)
 
     assert "Current weather: Temperature 25.5 °C, Clear sky" in result

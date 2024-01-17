@@ -53,7 +53,8 @@ def get_weather_by_coordinates(api_key, latitude, longitude):
         logger.error(f"Weather query exception: {str(e)}")
         return "Sorry, unable to fetch weather information."
 
-def search_weather(city):
+def search_weather(**kwargs):
+    city = kwargs.get('city')
     api_key = os.getenv("OPENWEATHERMAP_API_KEY")
     latitude, longitude = get_coordinates(api_key, city)
 

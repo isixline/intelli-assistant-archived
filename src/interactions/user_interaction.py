@@ -7,31 +7,41 @@ def generate_prompt():
     keywords = ', '.join(keyword_handle.keys())
     return f"Enter a keyword ({keywords}) to search, or 'exit' to end the program:"
 
-def perform_search(keyword, search_query):
+def perform_search(keyword, args):
     search_function = keyword_handle.get(keyword)
     if search_function:
-        result = search_function(search_query)
-        logger.info(f"user_input: {keyword} {search_query}")
+        result = search_function(args)
+        logger.info(f"user_input: {keyword} {args}")
         logger.info(f"search_result: {result}")
         return result
     else:
         return "I'm sorry, I don't understand what you're asking for."
+    
+def split_keyword_and_args(user_input):
+    if ' ' not in user_input:
+        keyword = user_input
+        args = ""
+    else:
+        keyword, args = user_input.split(maxsplit=1)  
+    return keyword, args
+    
+def split_args(args_string):
+    args = {}
+    for arg in args_string.split():
+        key, value = arg.split('=')
+        args[key] = value
+    return args
+
+    
+def user_input_handle(user_input):
+    keyword, args_string = split_keyword_and_args(user_input)
+    args = split_args(args_string)
+    return keyword, args
 
 def interaction_handle():
     print("Hello! I'm your personal intelligent assistant.")
 
     while True:
-        user_input = input(generate_prompt())
-        
-        if user_input.lower() == "exit":
-            logger.info("user exit")
-            print("Goodbye and have a nice day!")
-            break
-
-        keyword, search_query = user_input.lower().split(maxsplit=1)
-
-        while not search_query:
-            search_query = input("Please provide additional input after the keyword.")
-
-        search_result = perform_search(keyword, search_query)
+        keyword, args = user_input_handle(input(generate_prompt()))
+        search_result = perform_search(keyword, args)
         print(search_result)

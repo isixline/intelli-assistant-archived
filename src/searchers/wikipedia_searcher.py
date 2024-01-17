@@ -3,7 +3,8 @@ from src.utils.log_util import configure_logger
 
 logger = configure_logger(__name__, 'wikipedia_search.log')
 
-def search_wikipedia(query):
+def search_wikipedia(**kwargs):
+    query = kwargs.get('query')
     try:
         result = wikipedia.summary(query, sentences=1)
         logger.info(f"wikipedia_searcher Success query - {query}")

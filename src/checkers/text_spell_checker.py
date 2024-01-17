@@ -1,7 +1,8 @@
 import re
 from spellchecker import SpellChecker
 
-def check_text_spell(input_text):
+def check_text_spell(**kwargs):
+    input_text = kwargs.get('text')
     spell = SpellChecker()
     words = re.findall(r'\b\w+\b', input_text)
     misspelled_words = spell.unknown(words)
