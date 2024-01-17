@@ -25,13 +25,44 @@ def split_keyword_and_args(user_input):
         keyword, args = user_input.split(maxsplit=1)  
     return keyword, args
     
+   
 def split_args(args_string):
-    args = {}
-    for arg in args_string.split():
-        key, value = arg.split('=')
-        args[key] = value
-    return args
+    result = {}
+    stack = []
+    key = None
+    value = None
+    in_quotes = False
 
+    for char in args_string:
+        if char == '=' and not in_quotes:
+            key = ''.join(stack).strip()
+            stack = []
+        elif char == '"' and (not stack or stack[-1] != '\\'):
+            if in_quotes:
+                value = ''.join(stack)[1:]
+                result[key] = value
+                key = None
+                value = None
+                stack = []
+                in_quotes = False
+            else:
+                stack.append(char)
+                in_quotes = True
+        elif char == ' ' and not in_quotes:
+            if key is not None:
+                value = ''.join(stack).strip()
+                result[key] = value
+                key = None
+                value = None
+                stack = []
+        else:
+            stack.append(char)
+
+    if key is not None:
+        value = ''.join(stack).strip()
+        result[key] = value
+
+    return result
     
 def user_input_handle(user_input):
     keyword, args_string = split_keyword_and_args(user_input)

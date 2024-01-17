@@ -28,6 +28,16 @@ def test_split_args_with_two_args():
     expected_args = {"search": "Python", "page": "1"}
     assert split_args(args_string) == expected_args
 
+def test_split_args_with_two_args_and_include_quotes():
+    args_string = "search=\"Python\" page=1"
+    expected_args = {"search": "Python", "page": "1"}
+    assert split_args(args_string) == expected_args
+
+def test_split_args_with_two_args_and_include_quotes_and_spaces():
+    args_string = "search=\"Python programming\" page=1"
+    expected_args = {"search": "Python programming", "page": "1"}
+    assert split_args(args_string) == expected_args
+
 def test_handle_user_input_with_keyword():
     input_text = "wikipedia"
     expected_keyword = "wikipedia"
