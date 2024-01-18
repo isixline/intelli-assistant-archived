@@ -3,7 +3,7 @@ import pytest
 import os
 import shutil
 
-TEST_FOLDER = 'tests/checkers/handled'
+TEST_FOLDER = 'tests/test_data/handled'
 
 @pytest.fixture
 def cleanup_fixture():
@@ -28,9 +28,9 @@ def test_spell_checker_empty_text():
     assert not misspelled_words
 
 def test_spell_checker_with_file_path(cleanup_fixture):
-    input_file_path = "tests/checkers/resources/test_text_spell_checker_input.txt"
-    output_file_path = "tests/checkers/handled/test_text_spell_checker_output.txt"
-    expected_output_file_path = "tests/checkers/resources/test_text_spell_checker_excepted_output.txt"
+    input_file_path = "tests/test_data/test_text_spell_checker_input.txt"
+    output_file_path = "tests/test_data/handled/test_text_spell_checker_output.txt"
+    expected_output_file_path = "tests/test_data/test_text_spell_checker_excepted_output.txt"
     actual_output_file_path = check_text_spell_handle(file_path=input_file_path, output_path=output_file_path)
     assert actual_output_file_path == output_file_path
     with open(actual_output_file_path, 'r', encoding='utf-8') as f:
