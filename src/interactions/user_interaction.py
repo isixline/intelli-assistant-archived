@@ -7,10 +7,10 @@ def generate_prompt():
     keywords = ', '.join(keyword_handle.keys())
     return f"Enter a keyword ({keywords}) to search, or 'exit' to end the program:"
 
-def perform_search(keyword, args):
-    search_function = keyword_handle.get(keyword)
-    if search_function:
-        result = search_function(args)
+def distribute_keyword(keyword, args):
+    handle_function = keyword_handle.get(keyword)
+    if handle_function:
+        result = handle_function(**args)
         logger.info(f"user_input: {keyword} {args}")
         logger.info(f"search_result: {result}")
         return result
@@ -74,5 +74,8 @@ def interaction_handle():
 
     while True:
         keyword, args = user_input_handle(input(generate_prompt()))
-        search_result = perform_search(keyword, args)
+        if keyword == 'exit':
+            print("Goodbye!")
+            break
+        search_result = distribute_keyword(keyword, args)
         print(search_result)
